@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: vimpyre
+Version: 0.0dev
+Summary: Vim scripts installer written in python
+Home-page: UNKNOWN
+Author: Daniel Lin
+Author-email: linpct@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Keywords: vim python installer
+Platform: UNKNOWN

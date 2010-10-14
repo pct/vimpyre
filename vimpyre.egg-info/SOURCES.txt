@@ -1,0 +1,9 @@
+setup.cfg
+setup.py
+vimpyre/__init__.py
+vimpyre.egg-info/PKG-INFO
+vimpyre.egg-info/SOURCES.txt
+vimpyre.egg-info/dependency_links.txt
+vimpyre.egg-info/entry_points.txt
+vimpyre.egg-info/not-zip-safe
+vimpyre.egg-info/top_level.txt
