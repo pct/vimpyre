@@ -1,6 +1,0 @@
-Vimpyre
-=======
-
-Vimpyre, a vim script installer written in Python.
-
-I suggest you use vimana (git://github.com/c9s/Vimana.git), really!
