@@ -21,6 +21,9 @@ def remove_all():
     bat = Bat()
     bat.remove_all()
 
+def update_all():
+    print('Not implement yet!')
+
 def list_installed():
     print('Not implement yet!')
 
