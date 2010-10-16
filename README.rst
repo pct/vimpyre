@@ -5,9 +5,7 @@ Vimpyre
 Vimpyre, Vim Scripts Manager (use pathogen, git, and python!)
 
 Actions:
-    init, syncdb, install, search, remove, update, remove_all, update_all, list_installed
-
-Please don't use this script! I suggest you use vimana (git://github.com/c9s/Vimana.git) instead, really!
+    init, syncdb, install, search, remove, update, remove_all, update_all, list_installed, list_all
 
 ------------
 Requirements
@@ -51,6 +49,10 @@ Usage
 
     $ vimpyre list_installed
 
+- List All Scripts (list ~/.vim/vimpyre.json)::
+
+    $ vimpyre list_all
+
 - Update (git pull)::
 
     $ vimpyre update html5.vim rails.vim
@@ -72,5 +74,5 @@ Usage
 Current Status
 ---------------
 
-Version 0.1
+Version 0.1.1
 

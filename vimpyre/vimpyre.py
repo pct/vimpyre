@@ -1,11 +1,14 @@
 #!/usr/bin/env python
+# coding: utf-8
 
-import plac
+import os
 import sys
+import plac
 from bat import Bat
 
+VIM_PATH = os.path.expanduser('~')+'/.vim/'
 ACTIONS = ['install', 'search', 'remove', 'update']
-NOARG_ACTIONS = ['init', 'syncdb', 'remove_all', 'update_all', 'list_installed']
+NOARG_ACTIONS = ['init', 'syncdb', 'remove_all', 'update_all', 'list_installed', 'list_all']
 ACTIONS.extend(NOARG_ACTIONS)
 
 def syncdb():
@@ -28,6 +31,10 @@ def list_installed():
     bat = Bat()
     bat.list_installed()
 
+def list_all():
+    bat = Bat()
+    bat.list_all()
+
 def install(*scripts):
     """install scripts"""
     if scripts.__len__() >= 1:
@@ -49,7 +56,10 @@ def search(*scripts):
     print('=> => Send bats to search vim-scripts ...')
     if rets:
         for item in rets:
-            print('\033[1m%s\033[m => %s' % (item['name'], item['description']))
+            if os.path.exists(VIM_PATH + 'vimpyre/%s' % item['name']):
+                print('\033[1m%s\033[m => %s \033[1m[installed]\033[m' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
+            else:
+                print('\033[1m%s\033[m => %s' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
     else:
         print('No such vim-scripts! Please use `vimpyre syncdb` and try again!')
 
@@ -71,7 +81,6 @@ def update(*scripts):
             bat.update()
     else:
         print('Please use `vimpyre update <script-name>` and try again!')
-
 
 @plac.annotations(
     action=', '.join(ACTIONS),

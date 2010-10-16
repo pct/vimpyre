@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding: utf-8
 
 import os
 import urllib
@@ -138,14 +139,14 @@ class Bat(object):
                     for item in rets:
                         for db_item in db_items:
                             if item == db_item['name']:
-                                print('\033[1m%s\033[m => %s' % (db_item['name'], db_item['description']))
+                                print('\033[1m%s\033[m => %s' % (db_item['name'].encode('utf-8'), db_item['description'].encode('utf-8')))
                                 found = True
                                 break
                             else:
                                 found = False
 
                         if not found:
-                            print('\033[1m%s\033[m' % item)
+                            print('\033[1m%s\033[m' % item.encode('utf-8'))
                 except:
                     print('Please use `vimpyre init; vimpyre syncdb; vimpyre install <vim-scripts>` first!')
             else:
@@ -162,6 +163,21 @@ class Bat(object):
             return []
         except:
             pass
+
+    def list_all(self):
+        try:
+            repo = simplejson.loads(open(self.VIMPYRE_DB_PATH,'r').read())
+            db_items = repo['repositories']
+            if db_items:
+                for item in db_items:
+                    if os.path.exists('%s/%s' % (self.VIMPYRE_PATH, item['name'])):
+                        print('%s => %s [installed]' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
+                    else:
+                        print('%s => %s' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
+            else:
+                print('Please use `vimpyre syncdb` first and try again!')
+        except:
+            raise
 
     def search(self):
         """
