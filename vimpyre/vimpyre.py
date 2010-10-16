@@ -76,7 +76,7 @@ def update(*scripts):
 @plac.annotations(
     action=', '.join(ACTIONS),
     scripts="vim-script1, vim-script2, ...")
-def main(action, *scripts):
+def dispatch(action, *scripts):
     """main function"""
     if action not in ACTIONS:
         print('no such action, exit!')
@@ -91,6 +91,9 @@ def main(action, *scripts):
         scripts = '"' + '", "'.join(scripts) + '"'
         eval(action + '(%s)' % scripts)
 
+def main():
+    plac.call(dispatch)
+
 if __name__ == '__main__':
-    plac.call(main)
+    main()
 

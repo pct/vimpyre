@@ -29,7 +29,7 @@ setup(name='vimpyre',
       ],
       entry_points={
       'console_scripts': [
-          'vimpyre = vimpyre.main',
+          'vimpyre = vimpyre.vimpyre:main',
           ],
       },
       )
