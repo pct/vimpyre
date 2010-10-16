@@ -1,11 +1,15 @@
 Metadata-Version: 1.0
 Name: vimpyre
-Version: 0.0dev
-Summary: Vim scripts installer written in python
+Version: 0.1
+Summary: Vim Scripts Manager (use pathogen, git, and python!)
 Home-page: UNKNOWN
 Author: Daniel Lin
 Author-email: linpct@gmail.com
 License: UNKNOWN
-Description: UNKNOWN
+Description: Vim Scripts Manager (use pathogen, git, and python!)
+        
+        Actions:
+        install, search, remove, update, init, syncdb, remove_all, update_all, list_installed
+        
 Keywords: vim python installer
 Platform: UNKNOWN

@@ -3,7 +3,6 @@
 import plac
 import sys
 from bat import Bat
-from pprint import pprint
 
 ACTIONS = ['install', 'search', 'remove', 'update']
 NOARG_ACTIONS = ['init', 'syncdb', 'remove_all', 'update_all', 'list_installed']
@@ -22,10 +21,12 @@ def remove_all():
     bat.remove_all()
 
 def update_all():
-    print('Not implement yet!')
+    bat = Bat()
+    bat.update_all()
 
 def list_installed():
-    print('Not implement yet!')
+    bat = Bat()
+    bat.list_installed()
 
 def install(*scripts):
     """install scripts"""
@@ -45,11 +46,12 @@ def search(*scripts):
     bat = Bat(scripts[0])
     rets = bat.search()
 
+    print('=> => Send bats to search vim-scripts ...')
     if rets:
         for item in rets:
-            print('%s => %s' % (item['name'], item['description']))
+            print('\033[1m%s\033[m => %s' % (item['name'], item['description']))
     else:
-        print('No vim-scripts found!')
+        print('No such vim-scripts! Please use `vimpyre syncdb` and try again!')
 
 def remove(*scripts):
     """remove scripts"""
@@ -73,7 +75,7 @@ def update(*scripts):
 
 @plac.annotations(
     action=', '.join(ACTIONS),
-    scripts="vim-script")
+    scripts="vim-script1, vim-script2, ...")
 def main(action, *scripts):
     """main function"""
     if action not in ACTIONS:
@@ -86,8 +88,8 @@ def main(action, *scripts):
     elif action in NOARG_ACTIONS:
         eval(action + '()')
     else:
-        eval(action + '("%s")' % scripts)
-
+        scripts = '"' + '", "'.join(scripts) + '"'
+        eval(action + '(%s)' % scripts)
 
 if __name__ == '__main__':
     plac.call(main)
