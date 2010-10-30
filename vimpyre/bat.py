@@ -194,6 +194,6 @@ class Bat(object):
             repo = simplejson.loads(open(self.VIMPYRE_DB_PATH,'r').read())
             db_items = repo['repositories']
             if db_items:
-                return [item for item in db_items if self.CURR_SCRIPT in item['name'] or self.CURR_SCRIPT in item['description']]
+                return [item for item in db_items if self.CURR_SCRIPT.lower() in item['name'].lower() or self.CURR_SCRIPT.lower() in item['description'].lower()]
         except:
             pass
