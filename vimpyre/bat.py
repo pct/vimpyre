@@ -10,7 +10,7 @@ class Bat(object):
 
     CURR_SCRIPT = ''
     GITHUB_VIM_URL = 'http://vim-scripts.github.com/'
-    GITHUB_VIM_REPO = 'http://github.com/api/v2/json/repos/show/vim-scripts'
+    GITHUB_VIM_REPO = 'http://github.com/api/v2/json/repos/watched/vim-scripts'
     PATHOGEN_URL = 'http://github.com/vim-scripts/pathogen.vim/raw/master/plugin/pathogen.vim'
     VIM_PATH = os.path.expanduser('~')+'/.vim/'
     AUTOLOAD_PATH = VIM_PATH + 'autoload'

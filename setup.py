@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.1.2'
+version = '0.1.3'
 
 setup(name='vimpyre',
       version=version,
@@ -83,7 +83,7 @@ Usage
 Current Status
 ---------------
 
-Version 0.1.2
+Version 0.1.3
 
 """,
       classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers

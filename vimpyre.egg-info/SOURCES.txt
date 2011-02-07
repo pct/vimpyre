@@ -3,6 +3,7 @@ vimpyre/__init__.py
 vimpyre/bat.py
 vimpyre/vimpyre.py
 vimpyre.egg-info/PKG-INFO
+vimpyre.egg-info/PKG-INFO~
 vimpyre.egg-info/SOURCES.txt
 vimpyre.egg-info/dependency_links.txt
 vimpyre.egg-info/entry_points.txt
