@@ -38,8 +38,8 @@ def list_all():
 
 def install(*scripts):
     """install scripts"""
-    if scripts.__len__() >= 1:
-        for index in xrange(0, scripts.__len__()):
+    if len(scripts) >= 1:
+        for index in xrange(0, len(scripts)):
             bat = Bat(scripts[index])
             bat.install()
     else:
@@ -47,7 +47,7 @@ def install(*scripts):
 
 def search(*scripts):
     """search script"""
-    if scripts.__len__() > 1:
+    if len(scripts) > 1:
         print('Please search one script name!')
         sys.exit(1)
 
@@ -66,8 +66,8 @@ def search(*scripts):
 
 def remove(*scripts):
     """remove scripts"""
-    if scripts.__len__() >= 1:
-        for index in xrange(0, scripts.__len__()):
+    if len(scripts) >= 1:
+        for index in xrange(0, len(scripts)):
             bat = Bat(scripts[index])
             bat.remove()
     else:
@@ -76,8 +76,8 @@ def remove(*scripts):
 
 def update(*scripts):
     """update scripts"""
-    if scripts.__len__() >= 1:
-        for index in xrange(0, scripts.__len__()):
+    if len(scripts) >= 1:
+        for index in xrange(0, len(scripts)):
             bat = Bat(scripts[index])
             bat.update()
     else:
