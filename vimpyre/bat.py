@@ -78,7 +78,7 @@ class Bat(object):
             ret = self._check_name()
             if ret:
                 os.system('mkdir -p %s' % self.VIMPYRE_PATH)
-                cmd_fetch = 'cd %s; git clone %s' % (self.VIMPYRE_PATH, ret['url'].replace('http://', 'git://') + '.git')
+                cmd_fetch = 'cd %s; git clone --depth 1 %s' % (self.VIMPYRE_PATH, ret['url'].replace('http://', 'git://') + '.git')
                 os.system(cmd_fetch)
             else:
                 print('%s not found! Please use `vimpyre search <vim-script>` to check the script name and install again!' % self.CURR_SCRIPT)
