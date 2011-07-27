@@ -1,21 +1,25 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import os
+import shutil
+import sys
 import urllib
+from os import listdir, path, system
+
 import lxml.html as lhtml
 import simplejson
+
+import util
 
 class Bat(object):
 
     CURR_SCRIPT = ''
-    GITHUB_VIM_URL = 'http://vim-scripts.github.com/'
     GITHUB_VIM_REPO = 'http://github.com/api/v2/json/repos/watched/vim-scripts'
     PATHOGEN_URL = 'http://github.com/vim-scripts/pathogen.vim/raw/master/plugin/pathogen.vim'
-    VIM_PATH = os.path.expanduser('~')+'/.vim/'
-    AUTOLOAD_PATH = VIM_PATH + 'autoload'
-    VIMPYRE_PATH = VIM_PATH + 'vimpyre'
-    VIMPYRE_DB_PATH = VIM_PATH + 'vimpyre.json'
+    VIM_PATH = path.join(path.expanduser('~'), '.vim')
+    AUTOLOAD_PATH = path.join(VIM_PATH, 'autoload')
+    VIMPYRE_PATH = path.join(VIM_PATH, 'vimpyre')
+    VIMPYRE_DB_PATH = path.join(VIM_PATH, 'vimpyre.json')
 
     def __init__(self, script = ''):
         self.CURR_SCRIPT = script
@@ -32,16 +36,14 @@ class Bat(object):
         """
         try:
             print('=> => Send a bat to catch pathogen.vim ...')
-            cmd_create_autoload_dir = 'mkdir -p %s' % self.AUTOLOAD_PATH
-            cmd_create_vimpyre_dir = 'mkdir -p %s' % self.VIMPYRE_PATH
             raw_urlopen = urllib.urlopen(self.PATHOGEN_URL)
             if raw_urlopen.getcode() == 200:
+                util.mkdir_p(self.AUTOLOAD_PATH)
+                util.mkdir_p(self.VIMPYRE_PATH)
                 raw_pathogen = raw_urlopen.read()
-                os.system(cmd_create_autoload_dir)
-                os.system(cmd_create_vimpyre_dir)
-                f = open(self.AUTOLOAD_PATH + '/pathogen.vim', 'w')
-                f.write(raw_pathogen)
-                f.close()
+                pathogen = path.join(self.AUTOLOAD_PATH, 'pathogen.vim')
+                with open(pathogen, 'w') as f:
+                    f.write(raw_pathogen)
                 print('Catch done! Please add the following message to your .vimrc:')
                 print('call pathogen#runtime_append_all_bundles("vimpyre")')
             else:
@@ -63,9 +65,8 @@ class Bat(object):
             raw_urlopen = urllib.urlopen(self.GITHUB_VIM_REPO)
             if raw_urlopen.getcode() == 200:
                 raw_json = raw_urlopen.read()
-                f = open(self.VIMPYRE_DB_PATH, 'w')
-                f.write(raw_json)
-                f.close()
+                with open(self.VIMPYRE_DB_PATH, 'w') as f:
+                    f.write(raw_json)
                 print('Sync repo done!')
             else:
                 print('Sync repo fail! Please try again!')
@@ -77,9 +78,10 @@ class Bat(object):
         try:
             ret = self._check_name()
             if ret:
-                os.system('mkdir -p %s' % self.VIMPYRE_PATH)
-                cmd_fetch = 'cd %s; git clone --depth 1 %s' % (self.VIMPYRE_PATH, ret['url'].replace('http://', 'git://') + '.git')
-                os.system(cmd_fetch)
+                cmd_fetch = 'git clone --depth 1 %s' % (ret['url'] + '.git')
+                util.mkdir_p(self.VIMPYRE_PATH)
+                with util.cd(self.VIMPYRE_PATH):
+                    system(cmd_fetch)
             else:
                 print('%s not found! Please use `vimpyre search <vim-script>` to check the script name and install again!' % self.CURR_SCRIPT)
         except:
@@ -88,20 +90,23 @@ class Bat(object):
 
     def update(self):
         print('=> => Send a bat to update %s' % self.CURR_SCRIPT)
-        if os.path.exists('%s/%s' % (self.VIMPYRE_PATH, self.CURR_SCRIPT)):
-            os.system('cd %s/%s; git pull' % (self.VIMPYRE_PATH, self.CURR_SCRIPT))
+        bundle_path = path.join(self.VIMPYRE_PATH, self.CURR_SCRIPT)
+        if path.isdir(bundle_path):
+            with util.cd(bundle_path):
+                system('git pull')
             print('%s update done!' % self.CURR_SCRIPT)
         else:
             print('%s not exist!' % self.CURR_SCRIPT)
 
     def update_all(self):
         print('=> => Send bats to update all installed vim-scripts ...')
-        try: 
-            rets = os.listdir(self.VIMPYRE_PATH)
+        try:
+            rets = listdir(self.VIMPYRE_PATH)
             if rets:
                 for item in rets:
                     print('=> Update %s ...' % item)
-                    os.system('cd %s/%s; git pull' % (self.VIMPYRE_PATH, item))
+                    with util.cd(path.join(self.VIMPYRE_PATH, item)):
+                        system('git pull')
                 print('Update all vim-scripts done!')
             else:
                 print('No vim-scripts! Please use `vimpyre install <vim-scripts>` first!')
@@ -112,26 +117,34 @@ class Bat(object):
 
     def remove(self):
         print('=> => Send a bat to bite %s' % self.CURR_SCRIPT)
-        cmd_remove = 'cd %s; rm -rf %s' % (self.VIMPYRE_PATH, self.CURR_SCRIPT)
-        if self._check_name() and os.path.exists('%s/%s' % (self.VIMPYRE_PATH, self.CURR_SCRIPT)):
-            os.system(cmd_remove)
+        bundle_path = path.join(self.VIMPYRE_PATH, self.CURR_SCRIPT)
+        if self._check_name() and path.isdir(bundle_path):
+            shutil.rmtree(bundle_path)
             print('%s removed!' % self.CURR_SCRIPT)
         else:
-            print('%s not exists!' % self.CURR_SCRIPT)
-    
+            print('%s does not exist!' % self.CURR_SCRIPT)
+
     def remove_all(self):
         print('=> => Send bats to clean all vimpyre files')
-        if os.path.exists(self.VIMPYRE_PATH):
-            cmd_remove_all = 'rm -rf %s*' % self.VIMPYRE_PATH
-            os.system(cmd_remove_all)
+        bundles_dir = self.VIMPYRE_PATH
+        try:
+            with util.cd(bundles_dir):
+                bundles = [bundle for bundle in listdir('.') if
+                           path.isdir(bundle)]
+                for bundle in bundles:
+                    shutil.rmtree(bundle)
             print('Remove vimpyre bundles done!')
-        print('Please remove %s/pathogen.vim manually and clean `call pathogen#runtime_append_all_bundles("vimpyre")` from your .vimrc!' % self.AUTOLOAD_PATH)
-        print('If you still want to use vimpyre to manage your vim scripts, you have to use `vimpyre init; vimpyre syncdb` first!')
-    
+        except OSError:
+            print('Could not remove bundles! Does your vimpyre directory '
+                  'exist and have proper permissions?')
+        else:
+            print('Please remove %s/pathogen.vim manually and clean `call pathogen#runtime_append_all_bundles("vimpyre")` from your .vimrc!' % self.AUTOLOAD_PATH)
+            print('If you still want to use vimpyre to manage your vim scripts, you have to use `vimpyre init; vimpyre syncdb` first!')
+
     def list_installed(self):
         print('=> => Send bats to collect all your vim-scripts')
-        if os.path.exists(self.VIMPYRE_PATH):
-            rets = os.listdir(self.VIMPYRE_PATH)
+        if path.isdir(self.VIMPYRE_PATH):
+            rets = listdir(self.VIMPYRE_PATH)
             if rets:
                 try:
                     repo = simplejson.loads(open(self.VIMPYRE_DB_PATH,'r').read())
@@ -170,7 +183,7 @@ class Bat(object):
             db_items = repo['repositories']
             if db_items:
                 for item in db_items:
-                    if os.path.exists('%s/%s' % (self.VIMPYRE_PATH, item['name'])):
+                    if path.isdir(path.join(self.VIMPYRE_PATH, item['name'])):
                         print('%s => %s [installed]' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
                     else:
                         print('%s => %s' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
@@ -181,7 +194,7 @@ class Bat(object):
 
     def search(self):
         """
-        Search github vim-scripts, return array. 
+        Search github vim-scripts, return array.
 
             >>> bat = Bat('xxxxxxxx')
             >>> bat.search()
