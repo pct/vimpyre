@@ -4,6 +4,7 @@
 import shutil
 import sys
 import urllib
+import webbrowser
 from os import listdir, path, system
 
 import simplejson
@@ -208,4 +209,12 @@ class Bat(object):
         return [item for item in db['repositories']
                 if self.CURR_SCRIPT.lower() in item['name'].lower()
                 or self.CURR_SCRIPT.lower() in item['description'].lower()]
+
+    def open_homepage(self):
+        console('=> => Send bats to open your browser...')
+        bundle = self._check_name()
+        if bundle['homepage']:
+            webbrowser.open(bundle['homepage'])
+        else:
+            console('Sorry, no homepage found for this script.')
 
