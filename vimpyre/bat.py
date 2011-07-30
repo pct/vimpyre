@@ -2,11 +2,9 @@
 # coding: utf-8
 
 import shutil
-import sys
 import urllib
 from os import listdir, path, system
 
-import lxml.html as lhtml
 import simplejson
 
 import util

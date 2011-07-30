@@ -1,3 +1,2 @@
 plac>=0.7.4
-lxml>=2.2
 simplejson>=2

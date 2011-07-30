@@ -12,8 +12,7 @@ Requirements
 ------------
 
 1. git
-2. pyhton
-3. python-lxml (http://codespeak.net/lxml/)
+2. python
 4. python-plac (http://pypi.python.org/pypi/plac)
 5. python-simplejson (http://pypi.python.org/pypi/simplejson)
 
