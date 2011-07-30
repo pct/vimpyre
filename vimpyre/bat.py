@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import shutil
+import sys
 import urllib
 from os import listdir, path, system
 
@@ -22,6 +23,16 @@ class Bat(object):
 
     def __init__(self, script = ''):
         self.CURR_SCRIPT = script
+
+    @property
+    def bundles(self):
+        """ List of bundles in the vimpyre path """
+        try:
+            with util.cd(self.VIMPYRE_PATH):
+                return [item for item in listdir('.') if path.isdir(item)]
+        except OSError:
+            console('Cannot access your vimpyre path!')
+            console('Please use `vimpyre init; vimpyre syncdb` first!')
 
     def install_base(self):
         """
@@ -102,21 +113,15 @@ class Bat(object):
 
     def update_all(self):
         console('=> => Send bats to update all installed vim-scripts ...')
-        try:
-            rets = listdir(self.VIMPYRE_PATH)
-            if rets:
-                for item in rets:
-                    console('=> Update %s ...' % item)
-                    with util.cd(path.join(self.VIMPYRE_PATH, item)):
-                        system('git pull')
-                console('Update all vim-scripts done!')
-            else:
-                console('No vim-scripts! Please use `vimpyre install <vim-scripts>` first!')
-        except OSError:
-            console('Cannot access your vimpyre path!')
-            console('Please use `vimpyre init; vimpyre syncdb; vimpyre install <vim-scripts>` first!')
-        except:
-            console('[Unexpected Error] Please try again!')
+        if not self.bundles:
+            console('No vim-scripts! Please use `vimpyre install <vim-scripts>` first!')
+            sys.exit(1)
+
+        for item in self.bundles:
+            console('=> Update %s ...' % item)
+            with util.cd(path.join(self.VIMPYRE_PATH, item)):
+                system('git pull')
+        console('Update all vim-scripts done!')
 
     def remove(self):
         console('=> => Send a bat to bite %s' % self.CURR_SCRIPT)
@@ -129,17 +134,14 @@ class Bat(object):
 
     def remove_all(self):
         console('=> => Send bats to clean all vimpyre files')
-        bundles_dir = self.VIMPYRE_PATH
         try:
-            with util.cd(bundles_dir):
-                bundles = [bundle for bundle in listdir('.') if
-                           path.isdir(bundle)]
-                for bundle in bundles:
+            with util.cd(self.VIMPYRE_PATH):
+                for bundle in self.bundles:
                     shutil.rmtree(bundle)
             console('Remove vimpyre bundles done!')
         except OSError:
-            console('Could not remove bundles! Does your vimpyre directory '
-                  'exist and have proper permissions?')
+            console('Could not remove bundles! Please verify permissions of '
+                    'your bundle directories.')
         else:
             console('Please remove %s/pathogen.vim manually and clean `call pathogen#runtime_append_all_bundles("vimpyre")` from your .vimrc!' % self.AUTOLOAD_PATH)
             console('')
@@ -147,29 +149,25 @@ class Bat(object):
 
     def list_installed(self):
         console('=> => Send bats to collect all your vim-scripts')
-        if path.isdir(self.VIMPYRE_PATH):
-            rets = listdir(self.VIMPYRE_PATH)
-            if rets:
-                try:
-                    repo = simplejson.loads(open(self.VIMPYRE_DB_PATH,'r').read())
-                    db_items = repo['repositories']
-                    for item in rets:
-                        for db_item in db_items:
-                            if item == db_item['name']:
-                                console('\033[1m%s\033[m => %s' % (db_item['name'].encode('utf-8'), db_item['description'].encode('utf-8')))
-                                found = True
-                                break
-                            else:
-                                found = False
+        if not self.bundles:
+            console('No vim-scripts found!')
+            sys.exit(1)
+        try:
+            db = simplejson.loads(open(self.VIMPYRE_DB_PATH,'r').read())
+        except (IOError, simplejson.JSONDecodeError):
+            console('Missing or invalid vimpyre script database -- please run `vimpyre syncdb`!')
+            sys.exit(1)
 
-                        if not found:
-                            console('\033[1m%s\033[m' % item.encode('utf-8'))
-                except:
-                    console('Please use `vimpyre init; vimpyre syncdb; vimpyre install <vim-scripts>` first!')
-            else:
-                console('No vim-scripts found!')
-        else:
-            console('Please use `vimpyre init; vimpyre syncdb; vimpyre install <vim-scripts>` first!')
+        for bundle in self.bundles:
+            found = False
+            for repo in db['repositories']:
+                if bundle == repo['name']:
+                    console('\033[1m%s\033[m => %s' % (repo['name'].encode('utf-8'), repo['description'].encode('utf-8')))
+                    found = True
+                    break
+
+            if not found:
+                console('\033[1m%s\033[m' % bundle.encode('utf-8'))
 
     def _check_name(self):
         try:
