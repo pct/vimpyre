@@ -4,6 +4,8 @@
 import errno
 import os
 from contextlib import contextmanager
+from textwrap import fill
+
 
 def mkdir_p(path):
     """Create nested directories, not complaining if they exist"""
@@ -33,4 +35,10 @@ def cd(dir):
         yield dir
     finally:
         os.chdir(original_dir)
+
+
+# TODO: could try to determine terminal size, but that gets messy
+def console(msg):
+    """Print with console-friendly line wrapping"""
+    print(fill(msg, width=78))
 

@@ -6,6 +6,7 @@ import plac
 from os import path
 
 from bat import Bat
+from util import console
 
 VIM_PATH = path.join(path.expanduser('~'), '.vim')
 ACTIONS = ['install', 'search', 'remove', 'update']
@@ -43,26 +44,26 @@ def install(*scripts):
             bat = Bat(scripts[index])
             bat.install()
     else:
-        print('Please use `vimpyre install <script-name>` and try again!')
+        console('Please use `vimpyre install <script-name>` and try again!')
 
 def search(*scripts):
     """search script"""
     if len(scripts) > 1:
-        print('Please search one script name!')
+        console('Please search one script name!')
         sys.exit(1)
 
     bat = Bat(scripts[0])
     rets = bat.search()
 
-    print('=> => Send bats to search vim-scripts ...')
+    console('=> => Send bats to search vim-scripts ...')
     if rets:
         for item in rets:
             if path.isdir(path.join(VIM_PATH, 'vimpyre', item['name'])):
-                print('\033[1m%s\033[m => %s \033[1m[installed]\033[m' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
+                console('\033[1m%s\033[m => %s \033[1m[installed]\033[m' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
             else:
-                print('\033[1m%s\033[m => %s' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
+                console('\033[1m%s\033[m => %s' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
     else:
-        print('No such vim-scripts! Please use `vimpyre syncdb` and try again!')
+        console('No such vim-scripts! Please use `vimpyre syncdb` and try again!')
 
 def remove(*scripts):
     """remove scripts"""
@@ -71,7 +72,7 @@ def remove(*scripts):
             bat = Bat(scripts[index])
             bat.remove()
     else:
-        print('Please use `vimpyre remove <script-name>` and try again!')
+        console('Please use `vimpyre remove <script-name>` and try again!')
 
 
 def update(*scripts):
@@ -81,7 +82,7 @@ def update(*scripts):
             bat = Bat(scripts[index])
             bat.update()
     else:
-        print('Please use `vimpyre update <script-name>` and try again!')
+        console('Please use `vimpyre update <script-name>` and try again!')
 
 @plac.annotations(
     action=', '.join(ACTIONS),
@@ -89,11 +90,11 @@ def update(*scripts):
 def dispatch(action, *scripts):
     """main function"""
     if action not in ACTIONS:
-        print('no such action, exit!')
+        console('no such action, exit!')
         sys.exit(1)
 
     if action not in NOARG_ACTIONS and not scripts:
-        print('Please give a vim script name and try again!')
+        console('Please give a vim script name and try again!')
         sys.exit(1)
     elif action in NOARG_ACTIONS:
         eval(action + '()')
