@@ -152,12 +152,8 @@ class Bat(object):
         if not self.bundles:
             console('No vim-scripts found!')
             sys.exit(1)
-        try:
-            db = simplejson.loads(open(self.VIMPYRE_DB_PATH,'r').read())
-        except (IOError, simplejson.JSONDecodeError):
-            console('Missing or invalid vimpyre script database -- please run `vimpyre syncdb`!')
-            sys.exit(1)
 
+        db = self._load_db()
         for bundle in self.bundles:
             found = False
             for repo in db['repositories']:
@@ -168,6 +164,16 @@ class Bat(object):
 
             if not found:
                 console('\033[1m%s\033[m' % bundle.encode('utf-8'))
+
+    def _load_db(self):
+        """ Loads vim-scripts repository data from GitHub JSON """
+        try:
+            db = simplejson.loads(open(self.VIMPYRE_DB_PATH,'r').read())
+            assert 'repositories' in db
+            return db
+        except (IOError, simplejson.JSONDecodeError, AssertionError):
+            console('Missing or invalid vimpyre script database -- please run `vimpyre syncdb`!')
+            sys.exit(1)
 
     def _check_name(self):
         try:
@@ -180,19 +186,12 @@ class Bat(object):
             pass
 
     def list_all(self):
-        try:
-            repo = simplejson.loads(open(self.VIMPYRE_DB_PATH,'r').read())
-            db_items = repo['repositories']
-            if db_items:
-                for item in db_items:
-                    if path.isdir(path.join(self.VIMPYRE_PATH, item['name'])):
-                        console('%s => %s [installed]' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
-                    else:
-                        console('%s => %s' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
+        db = self._load_db()
+        for item in db['repositories']:
+            if path.isdir(path.join(self.VIMPYRE_PATH, item['name'])):
+                console('%s => %s [installed]' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
             else:
-                console('Please use `vimpyre syncdb` first and try again!')
-        except:
-            raise
+                console('%s => %s' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
 
     def search(self):
         """
@@ -205,10 +204,8 @@ class Bat(object):
             >>> bat.search() # doctest: +ELLIPSIS
             [{..., 'name': 'pathogen.vim'}]
         """
-        try:
-            repo = simplejson.loads(open(self.VIMPYRE_DB_PATH,'r').read())
-            db_items = repo['repositories']
-            if db_items:
-                return [item for item in db_items if self.CURR_SCRIPT.lower() in item['name'].lower() or self.CURR_SCRIPT.lower() in item['description'].lower()]
-        except:
-            pass
+        db = self._load_db()
+        return [item for item in db['repositories']
+                if self.CURR_SCRIPT.lower() in item['name'].lower()
+                or self.CURR_SCRIPT.lower() in item['description'].lower()]
+
