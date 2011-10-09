@@ -77,6 +77,10 @@ Usage
     $ vimpyre remove_all
     (If you want to use vimpyre again, please `vimpyre init; vimpyre syncdb` first!)
 
+- Browse (open script's homepage on vim.org)::
+
+    $ vimpyre browse calendar.vim
+
 ---------------
 Current Status
 ---------------

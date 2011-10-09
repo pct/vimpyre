@@ -9,7 +9,7 @@ from bat import Bat
 from util import console
 
 VIM_PATH = path.join(path.expanduser('~'), '.vim')
-ACTIONS = ['install', 'search', 'remove', 'update']
+ACTIONS = ['install', 'search', 'remove', 'update', 'browse']
 NOARG_ACTIONS = ['init', 'syncdb', 'remove_all', 'update_all', 'list_installed', 'list_all']
 ACTIONS.extend(NOARG_ACTIONS)
 
@@ -83,6 +83,16 @@ def update(*scripts):
             bat.update()
     else:
         console('Please use `vimpyre update <script-name>` and try again!')
+
+def browse(*scripts):
+    """browse script's homepage in your web browser"""
+    if len(scripts) >= 1:
+        for index in xrange(0, len(scripts)):
+            bat = Bat(scripts[index])
+            bat.open_homepage()
+    else:
+        console('Please use `vimpyre browse <script-name>` and try again!')
+
 
 @plac.annotations(
     action=', '.join(ACTIONS),
