@@ -1,13 +1,11 @@
-=======
 Vimpyre
 =======
 
 Vimpyre, Vim Scripts Manager (use pathogen, git, and python!)
 
 Actions:
-    init, syncdb, install, search, remove, update, remove_all, update_all, list_installed, list_all
+    init, syncdb, install, search, remove, update, browse, remove_all, update_all, list_installed, list_all
 
-------------
 Requirements
 ------------
 
@@ -16,7 +14,6 @@ Requirements
 3. python-plac (http://pypi.python.org/pypi/plac)
 4. python-simplejson (http://pypi.python.org/pypi/simplejson)
 
--------
 Install
 -------
 Step::
@@ -24,9 +21,8 @@ Step::
     $ git clone git://github.com/pct/vimpyre.git
     $ cd vimpyre; sudo python setup.py install
 
-------
 Usage
-------
+-----
 - Init (get pathogen.vim and create ~/.vim/vimpyre)::
 
     $ vimpyre init
@@ -73,9 +69,21 @@ Usage
 
     $ vimpyre browse calendar.vim
 
----------------
-Current Status
----------------
+Todo
+----
 
-Version 0.1.4
+- HomeBrew like command
+
+- Search/Install scripts from github [VimL]
+
+- Install from any git repos what user given.
+
+Change Log
+-----------
+
+- Version 0.1.5
+
+  * NEW: add `vimpyre browse <script_name>` to browse vim scripts page
+  * CHANGE: vimpyre code refactoring
+
 
