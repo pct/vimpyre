@@ -9,13 +9,9 @@ from bat import Bat
 from util import console
 
 VIM_PATH = path.join(path.expanduser('~'), '.vim')
-ACTIONS = ['install', 'search', 'remove', 'update', 'browse']
-NOARG_ACTIONS = ['init', 'syncdb', 'remove_all', 'update_all', 'list_installed', 'list_all']
+ACTIONS = ['install', 'search', 'remove', 'uninstall', 'update', 'browse']
+NOARG_ACTIONS = ['init', 'remove_all', 'uninstall_all', 'update_all', 'list_installed']
 ACTIONS.extend(NOARG_ACTIONS)
-
-def syncdb():
-    bat = Bat()
-    bat.syncdb()
 
 def init():
     bat = Bat()
@@ -25,6 +21,9 @@ def remove_all():
     bat = Bat()
     bat.remove_all()
 
+def uninstall_all():
+    remove_all()
+
 def update_all():
     bat = Bat()
     bat.update_all()
@@ -32,10 +31,6 @@ def update_all():
 def list_installed():
     bat = Bat()
     bat.list_installed()
-
-def list_all():
-    bat = Bat()
-    bat.list_all()
 
 def install(*scripts):
     """install scripts"""
@@ -63,7 +58,7 @@ def search(*scripts):
             else:
                 console('\033[1m%s\033[m => %s' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
     else:
-        console('No such vim-scripts! Please use `vimpyre syncdb` and try again!')
+        console('No such vim-scripts!')
 
 def remove(*scripts):
     """remove scripts"""
@@ -74,6 +69,8 @@ def remove(*scripts):
     else:
         console('Please use `vimpyre remove <script-name>` and try again!')
 
+def uninstall(*scripts):
+    remove(*scripts)
 
 def update(*scripts):
     """update scripts"""

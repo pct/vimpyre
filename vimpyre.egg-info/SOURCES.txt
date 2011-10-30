@@ -1,6 +1,7 @@
 setup.py
 vimpyre/__init__.py
 vimpyre/bat.py
+vimpyre/github.py
 vimpyre/util.py
 vimpyre/vimpyre.py
 vimpyre.egg-info/PKG-INFO

@@ -4,7 +4,7 @@ Vimpyre
 Vimpyre, Vim Scripts Manager (use pathogen, git, and python!)
 
 Actions:
-    init, syncdb, install, search, remove, update, browse, remove_all, update_all, list_installed, list_all
+    init, install, search, remove, uninstall, update, browse, remove_all, uninstall_all, update_all, list_installed
 
 Requirements
 ------------
@@ -13,13 +13,20 @@ Requirements
 2. python
 3. python-plac (http://pypi.python.org/pypi/plac)
 4. python-simplejson (http://pypi.python.org/pypi/simplejson)
+5. lxml (http://lxml.de/)
 
 Install
 -------
-Step::
+Use git or pip.
+
+Use git::
 
     $ git clone git://github.com/pct/vimpyre.git
     $ cd vimpyre; sudo python setup.py install
+
+Use pip::
+
+    # pip install vimpyre
 
 Usage
 -----
@@ -28,25 +35,23 @@ Usage
     $ vimpyre init
     ( Please add 'call pathogen#runtime_append_all_bundles("vimpyre")' to your .vimrc manually.)
 
-- SyncDB (get github vim-scripts repository)::
-
-    $ vimpyre syncdb
-
 - Search (Search vim-scripts from local repository)::
 
-    $ vimpyre search html5.vim
+    $ vimpyre search html5
+    $ vimpyre search othree/html5.vim
 
 - Install (git clone vim-scripts to ~/.vim/vimpyre)::
 
-    $ vimpyre install html5.vim rails.vim calendar.vim
+    $ vimpyre install othree/html5.vim
+    $ vimpyre install vim-scripts/html5.vim
+    $ vimpyre install git://github.com/vim-scripts/ragtag.vim.git
+    $ vimpyre install git://github.com/vim-scripts/ragtag.vim
+    $ vimpyre install https://github.com/vim-scripts/ragtag.vim.git
+    $ vimpyre install https://github.com/vim-scripts/ragtag.vim
 
 - List Installed (list ~/.vim/vimpyre directories)::
 
     $ vimpyre list_installed
-
-- List All Scripts (list ~/.vim/vimpyre.json)::
-
-    $ vimpyre list_all
 
 - Update (git pull)::
 
@@ -72,11 +77,7 @@ Usage
 Todo
 ----
 
-- HomeBrew like command
-
-- Search/Install scripts from github [VimL]
-
-- Install from any git repos what user given.
+Please tell me what feature you want.
 
 License
 -------
@@ -97,9 +98,22 @@ The BSD 2-Clause License ("Simplified BSD License" or "FreeBSD License")::
 Change Log
 -----------
 
+- Version 0.2.0
+
+    * FIX: `vimpyre search`, just use github search without using github API
+    * REMOVE: `list_all`, `syncdb`
+    * NEW: you could install github scripts with::
+
+        $ vimpyre install othree/html5.vim
+        $ vimpyre install vim-scripts/html5.vim
+        $ vimpyre install git://github.com/vim-scripts/ragtag.vim.git
+        $ vimpyre install git://github.com/vim-scripts/ragtag.vim
+        $ vimpyre install https://github.com/vim-scripts/ragtag.vim.git
+        $ vimpyre install https://github.com/vim-scripts/ragtag.vim
+
 - Version 0.1.5
 
-  * NEW: add `vimpyre browse <script_name>` to browse vim scripts page
-  * CHANGE: vimpyre code refactoring
+    * NEW: add `vimpyre browse <script_name>` to browse vim scripts page
+    * CHANGE: vimpyre code refactoring
 
 
