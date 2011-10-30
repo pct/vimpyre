@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.2.0'
+version = '0.2.1'
 
 setup(name='vimpyre',
       version=version,
@@ -21,7 +21,8 @@ Requirements
 2. python
 3. python-plac (http://pypi.python.org/pypi/plac)
 4. python-simplejson (http://pypi.python.org/pypi/simplejson)
-5. lxml (http://lxml.de/)
+5. python-lxml (http://lxml.de/)
+6. python-requests (http://python-requests.org)
 
 Install
 -------
@@ -106,6 +107,10 @@ The BSD 2-Clause License ("Simplified BSD License" or "FreeBSD License")::
 Change Log
 -----------
 
+- Version 0.2.1
+
+    * FIX: setup.py requirements
+
 - Version 0.2.0
 
     * FIX: `vimpyre search`, just use github search without using github API
@@ -137,7 +142,9 @@ Change Log
       zip_safe=False,
       install_requires=[
           'plac>=0.7.4',
-          'simplejson>=2'
+          'simplejson>=2',
+          'requests',
+          'lxml'
           # -*- Extra requirements: -*-
       ],
       entry_points={

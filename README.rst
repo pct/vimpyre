@@ -13,7 +13,8 @@ Requirements
 2. python
 3. python-plac (http://pypi.python.org/pypi/plac)
 4. python-simplejson (http://pypi.python.org/pypi/simplejson)
-5. lxml (http://lxml.de/)
+5. python-lxml (http://lxml.de/)
+6. python-requests (http://python-requests.org)
 
 Install
 -------
@@ -97,6 +98,10 @@ The BSD 2-Clause License ("Simplified BSD License" or "FreeBSD License")::
 
 Change Log
 -----------
+
+- Version 0.2.1
+
+    * FIX: setup.py requirements
 
 - Version 0.2.0
 
