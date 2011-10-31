@@ -73,7 +73,8 @@ Usage
 
 - Browse (open script's homepage on vim.org)::
 
-    $ vimpyre browse calendar.vim
+    $ vimpyre browse othree/html5.vim
+    $ vimpyre browse https://github.com/othree/html5.vim
 
 Todo
 ----
@@ -98,6 +99,10 @@ The BSD 2-Clause License ("Simplified BSD License" or "FreeBSD License")::
 
 Change Log
 -----------
+
+- Version 0.2.2
+
+    * FIX: `vimpyre browse`
 
 - Version 0.2.1
 

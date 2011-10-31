@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.2.1'
+version = '0.2.2'
 
 setup(name='vimpyre',
       version=version,
@@ -81,7 +81,8 @@ Usage
 
 - Browse (open script's homepage on vim.org)::
 
-    $ vimpyre browse calendar.vim
+    $ vimpyre browse othree/html5.vim
+    $ vimpyre browse https://github.com/othree/html5.vim
 
 Todo
 ----
@@ -106,6 +107,10 @@ The BSD 2-Clause License ("Simplified BSD License" or "FreeBSD License")::
 
 Change Log
 -----------
+
+- Version 0.2.2
+
+    * FIX: `vimpyre browse`
 
 - Version 0.2.1
 
@@ -143,8 +148,8 @@ Change Log
       install_requires=[
           'plac>=0.7.4',
           'simplejson>=2',
-          'requests',
-          'lxml'
+          'requests>=0.7.1',
+          'lxml>=2.2'
           # -*- Extra requirements: -*-
       ],
       entry_points={

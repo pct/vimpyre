@@ -34,6 +34,7 @@ class Bat(object):
             search_ret = self.search()
             rets = [item for item in search_ret if self.CURR_SCRIPT == item['name']]
             if rets:
+                rets[0]['homepage'] = 'https://github.com/' + self.CURR_SCRIPT
                 return rets[0]
             return []
         except:
@@ -103,7 +104,6 @@ class Bat(object):
                        self.CURR_SCRIPT)
                 console(msg)
         except:
-            raise
             self.install_base()
 
     def update(self):
@@ -173,8 +173,10 @@ class Bat(object):
     def open_homepage(self):
         console('=> => Send bats to open your browser...')
         bundle = self._check_name()
-        if bundle['homepage']:
+        if type(bundle) == dict and bundle['homepage']:
             webbrowser.open(bundle['homepage'])
+        elif bundle:
+            webbrowser.open(bundle)
         else:
             console('Sorry, no homepage found for this script.')
 

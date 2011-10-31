@@ -1,4 +1,4 @@
 plac>=0.7.4
 simplejson>=2
-requests
-lxml
+requests>=0.7.1
+lxml>=2.2
