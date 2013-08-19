@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.2.2'
+version = '0.2.3'
 
 setup(name='vimpyre',
       version=version,
@@ -21,8 +21,7 @@ Requirements
 2. python
 3. python-plac (http://pypi.python.org/pypi/plac)
 4. python-simplejson (http://pypi.python.org/pypi/simplejson)
-5. python-lxml (http://lxml.de/)
-6. python-requests (http://python-requests.org)
+5. python-requests (http://python-requests.org)
 
 Install
 -------
@@ -108,6 +107,10 @@ The BSD 2-Clause License ("Simplified BSD License" or "FreeBSD License")::
 Change Log
 -----------
 
+- Version 0.2.3
+
+    * FIX: Switched over to new GitHub API @ http://developer.github.com/v3/search for searching
+
 - Version 0.2.2
 
     * FIX: `vimpyre browse`
@@ -142,14 +145,13 @@ Change Log
       author_email='linpct@gmail.com',
       url='',
       license='',
-      packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
+      packages=find_packages(exclude=['ez_setup', 'examples', 'tests', 'README.rst']),
       include_package_data=True,
       zip_safe=False,
       install_requires=[
           'plac>=0.7.4',
           'simplejson>=2',
-          'requests>=0.7.1',
-          'lxml>=2.2'
+          'requests>=1.1.0',
           # -*- Extra requirements: -*-
       ],
       entry_points={
