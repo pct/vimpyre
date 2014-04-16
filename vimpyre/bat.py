@@ -17,10 +17,16 @@ from github import GitHub
 class Bat(object):
 
     CURR_SCRIPT = ''
-    PATHOGEN_URL = 'http://github.com/vim-scripts/pathogen.vim/raw/master/plugin/pathogen.vim'
     VIM_PATH = path.join(path.expanduser('~'), '.vim')
     AUTOLOAD_PATH = path.join(VIM_PATH, 'autoload')
     VIMPYRE_PATH = path.join(VIM_PATH, 'vimpyre')
+    
+    @property
+    def pathogen_url(self):
+        return sys.environ(
+            'VIM_PATHOGEN_URL',
+            'https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim'
+        )
 
     def __init__(self, script = ''):
         self.CURR_SCRIPT = script
@@ -72,7 +78,7 @@ class Bat(object):
         """
         try:
             console('=> => Send a bat to catch pathogen.vim ...')
-            raw_urlopen = urllib.urlopen(self.PATHOGEN_URL)
+            raw_urlopen = urllib.urlopen(self.pathogen_url)
             if raw_urlopen.getcode() == 200:
                 util.mkdir_p(self.AUTOLOAD_PATH)
                 util.mkdir_p(self.VIMPYRE_PATH)
@@ -83,6 +89,7 @@ class Bat(object):
                 console('Catch done! Please add the following to your .vimrc:')
                 console('call pathogen#runtime_append_all_bundles("vimpyre")')
             else:
+                console('Pathogen vimscript not found in %s' % self.pathogen_url)
                 console('Catch fail! Please try again!')
         except:
             console('[Unexpected Error] Catch fail! Please try again!')
