@@ -90,6 +90,7 @@ class Bat(object):
                 console('call pathogen#runtime_append_all_bundles("vimpyre")')
             else:
                 console('Pathogen vimscript not found in %s' % self.pathogen_url)
+                console('You can change this url with enviroment variable VIM_PATHOGEN_URL')
                 console('Catch fail! Please try again!')
         except:
             console('[Unexpected Error] Catch fail! Please try again!')
