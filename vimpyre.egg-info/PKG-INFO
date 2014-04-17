@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: vimpyre
-Version: 0.2.4
+Version: 0.2.5
 Summary: Vim Scripts Manager (use pathogen, git, and python!)
 Home-page: UNKNOWN
 Author: Daniel Lin
@@ -106,6 +106,10 @@ Description: Vimpyre
         
         Change Log
         -----------
+        
+        - Version 0.2.5
+        
+          * NEW: add "last"(updated time) to search result
         
         - Version 0.2.4
         

@@ -31,7 +31,7 @@ class GitHub(object):
             for entry in results['items']:
                 if not entry['description']:
                     entry['description'] = 'None'
-                items.append({'name': entry['full_name'], 'description': entry['description'], 'url': entry['html_url']})
+                items.append({'name': entry['full_name'], 'description': entry['description'], 'url': entry['html_url'], 'updated_at': entry['updated_at'].split('T')[0]})
         return items
 
     def _filter_result(self, results, keyword):

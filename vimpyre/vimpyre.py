@@ -56,7 +56,7 @@ def search(*scripts):
             if path.isdir(path.join(VIM_PATH, 'vimpyre', item['name'])):
                 console('\033[1m%s\033[m => %s \033[1m[installed]\033[m' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
             else:
-                console('\033[1m%s\033[m => %s' % (item['name'].encode('utf-8'), item['description'].encode('utf-8')))
+                console('\033[1m%s\033[m => %s | last: %s' % (item['name'].encode('utf-8'), item['description'].encode('utf-8'), item['updated_at']))
     else:
         console('No such vim-scripts!')
 

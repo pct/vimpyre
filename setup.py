@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.2.4'
+version = '0.2.5'
 
 setup(name='vimpyre',
       version=version,
@@ -106,6 +106,10 @@ The BSD 2-Clause License ("Simplified BSD License" or "FreeBSD License")::
 
 Change Log
 -----------
+
+- Version 0.2.5
+
+  * NEW: add "last"(updated time) to search result
 
 - Version 0.2.4
 
