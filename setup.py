@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.2.3'
+version = '0.2.4'
 
 setup(name='vimpyre',
       version=version,
@@ -107,6 +107,10 @@ The BSD 2-Clause License ("Simplified BSD License" or "FreeBSD License")::
 Change Log
 -----------
 
+- Version 0.2.4
+
+  * FIX: vimpyre init, vimpyre search result
+  
 - Version 0.2.3
 
     * FIX: Switched over to new GitHub API @ http://developer.github.com/v3/search for searching

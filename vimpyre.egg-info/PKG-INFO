@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: vimpyre
-Version: 0.2.2
+Version: 0.2.4
 Summary: Vim Scripts Manager (use pathogen, git, and python!)
 Home-page: UNKNOWN
 Author: Daniel Lin
@@ -21,8 +21,7 @@ Description: Vimpyre
         2. python
         3. python-plac (http://pypi.python.org/pypi/plac)
         4. python-simplejson (http://pypi.python.org/pypi/simplejson)
-        5. python-lxml (http://lxml.de/)
-        6. python-requests (http://python-requests.org)
+        5. python-requests (http://python-requests.org)
         
         Install
         -------
@@ -107,6 +106,14 @@ Description: Vimpyre
         
         Change Log
         -----------
+        
+        - Version 0.2.4
+        
+          * FIX: vimpyre init, vimpyre search result
+          
+        - Version 0.2.3
+        
+            * FIX: Switched over to new GitHub API @ http://developer.github.com/v3/search for searching
         
         - Version 0.2.2
         
