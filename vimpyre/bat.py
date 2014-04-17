@@ -6,7 +6,8 @@ import sys
 import urllib
 import webbrowser
 import subprocess
-from os import listdir, path, system
+from os import listdir, path, system, environ
+
 
 import simplejson
 
@@ -23,10 +24,10 @@ class Bat(object):
     
     @property
     def pathogen_url(self):
-        return sys.environ(
-            'VIM_PATHOGEN_URL',
-            'https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim'
-        )
+        try:
+            return environ['VIM_PATHOGEN_URL']
+        except:
+            return 'https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim'
 
     def __init__(self, script = ''):
         self.CURR_SCRIPT = script
