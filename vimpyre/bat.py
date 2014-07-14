@@ -75,7 +75,7 @@ class Bat(object):
             >>> bat.install_base()
             => => Send a bat to catch pathogen.vim ...
             Catch done! Please add the following message to your .vimrc:
-            call pathogen#runtime_append_all_bundles("vimpyre")
+            execute pathogen#infect('bundle/{}', 'vimpyre/{}')
         """
         try:
             console('=> => Send a bat to catch pathogen.vim ...')
@@ -88,7 +88,7 @@ class Bat(object):
                 with open(pathogen, 'w') as f:
                     f.write(raw_pathogen)
                 console('Catch done! Please add the following to your .vimrc:')
-                console('call pathogen#runtime_append_all_bundles("vimpyre")')
+                console("execute pathogen#infect('bundle/{}', 'vimpyre/{}')")
             else:
                 console('Pathogen vimscript not found in %s' % self.pathogen_url)
                 console('You can change this url with enviroment variable VIM_PATHOGEN_URL')
@@ -157,7 +157,7 @@ class Bat(object):
             console('Could not remove bundles! Please verify permissions of '
                     'your bundle directories.')
         else:
-            console('Please remove %s/pathogen.vim manually and clean `call pathogen#runtime_append_all_bundles("vimpyre")` from your .vimrc!' % self.AUTOLOAD_PATH)
+            console('Please remove %s/pathogen.vim manually!' % self.AUTOLOAD_PATH)
             console('')
             console('If you wish to use vimpyre to manage your vim scripts again, you need to use `vimpyre init` first!')
 

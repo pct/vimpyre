@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: vimpyre
-Version: 0.2.5
+Version: 0.2.6
 Summary: Vim Scripts Manager (use pathogen, git, and python!)
 Home-page: UNKNOWN
 Author: Daniel Lin
@@ -41,7 +41,7 @@ Description: Vimpyre
         - Init (get pathogen.vim and create ~/.vim/vimpyre)::
         
             $ vimpyre init
-            ( Please add 'call pathogen#runtime_append_all_bundles("vimpyre")' to your .vimrc manually.)
+            ( Please add 'execute pathogen#infect('bundle/{}', 'vimpyre/{}'' to your .vimrc manually.)
         
         - Search (Search vim-scripts from local repository)::
         
@@ -107,6 +107,10 @@ Description: Vimpyre
         Change Log
         -----------
         
+        - Version 0.2.6
+        
+          * FIX: update pathogen, use `execute pathogen#infect('bundle/{}', 'vimpyre/{}'`
+        
         - Version 0.2.5
         
           * NEW: add "last"(updated time) to search result
@@ -114,10 +118,10 @@ Description: Vimpyre
         - Version 0.2.4
         
           * FIX: vimpyre init, vimpyre search result
-          
+        
         - Version 0.2.3
         
-            * FIX: Switched over to new GitHub API @ http://developer.github.com/v3/search for searching
+          * FIX: Switched over to new GitHub API @ http://developer.github.com/v3/search for searching
         
         - Version 0.2.2
         

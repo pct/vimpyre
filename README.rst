@@ -33,7 +33,7 @@ Usage
 - Init (get pathogen.vim and create ~/.vim/vimpyre)::
 
     $ vimpyre init
-    ( Please add 'call pathogen#runtime_append_all_bundles("vimpyre")' to your .vimrc manually.)
+    ( Please add 'execute pathogen#infect('bundle/{}', 'vimpyre/{}'' to your .vimrc manually.)
 
 - Search (Search vim-scripts from local repository)::
 
@@ -98,6 +98,10 @@ The BSD 2-Clause License ("Simplified BSD License" or "FreeBSD License")::
 
 Change Log
 -----------
+
+- Version 0.2.6
+
+  * FIX: update pathogen, use `execute pathogen#infect('bundle/{}', 'vimpyre/{}'`
 
 - Version 0.2.5
 
