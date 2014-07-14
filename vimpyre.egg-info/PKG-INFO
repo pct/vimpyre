@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: vimpyre
-Version: 0.2.6
+Version: 0.2.7
 Summary: Vim Scripts Manager (use pathogen, git, and python!)
 Home-page: UNKNOWN
 Author: Daniel Lin
@@ -106,6 +106,10 @@ Description: Vimpyre
         
         Change Log
         -----------
+        
+        - Version 0.2.7
+        
+          * FIX: vimpyre list_installed output if not git directories.
         
         - Version 0.2.6
         

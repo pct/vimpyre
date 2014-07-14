@@ -198,5 +198,8 @@ class Bat(object):
         for bundle in self.bundles:
             bundle_path = path.join(self.VIMPYRE_PATH, bundle)
             with util.cd(bundle_path):
-                url = subprocess.check_output(['grep', 'url', '.git/config']).replace('\turl = ', '').replace('\n', '')
-                console('\033[1m%s\033[m => %s' % (bundle, url))
+                if path.isfile(path.join('.git', 'config')):
+                    url = subprocess.check_output(['grep', 'url', '.git/config']).replace('\turl = ', '').replace('\n', '')
+                    console('\033[1m%s\033[m => %s' % (bundle, url))
+                else:
+                    console('\033[0;31m%s\033[m => %s' % (bundle, 'No git repository!'))

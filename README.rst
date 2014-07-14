@@ -99,6 +99,10 @@ The BSD 2-Clause License ("Simplified BSD License" or "FreeBSD License")::
 Change Log
 -----------
 
+- Version 0.2.7
+
+  * FIX: vimpyre list_installed output if not git directories.
+
 - Version 0.2.6
 
   * FIX: update pathogen, use `execute pathogen#infect('bundle/{}', 'vimpyre/{}'`

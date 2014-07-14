@@ -1,14 +1,11 @@
 from setuptools import setup, find_packages
 
-with open('README.rst') as file:
-    long_description = file.read()
-
-version = '0.2.6'
+version = '0.2.7'
 
 setup(name='vimpyre',
       version=version,
       description="Vim Scripts Manager (use pathogen, git, and python!)",
-      long_description=long_description,
+      long_description=open('README.rst').read(),
       classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       keywords='vim scripts manager',
       author='Daniel Lin',
