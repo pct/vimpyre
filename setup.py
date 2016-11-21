@@ -17,7 +17,6 @@ setup(name='vimpyre',
       zip_safe=False,
       install_requires=[
           'plac>=0.7.4',
-          'simplejson>=2',
           'requests>=1.1.0',
           # -*- Extra requirements: -*-
       ],
