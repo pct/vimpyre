@@ -6,11 +6,8 @@ import sys
 import urllib
 import webbrowser
 import subprocess
+
 from os import listdir, path, system, environ
-
-
-import simplejson
-
 from vimpyre import util
 from vimpyre.util import console
 from vimpyre.github import GitHub
