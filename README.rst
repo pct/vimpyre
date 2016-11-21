@@ -99,6 +99,10 @@ The BSD 2-Clause License ("Simplified BSD License" or "FreeBSD License")::
 Change Log
 -----------
 
+- Version 0.3.0
+
+  * Python3 
+
 - Version 0.2.7
 
   * FIX: vimpyre list_installed output if not git directories.
