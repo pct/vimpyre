@@ -3,8 +3,14 @@
 
 import errno
 import os
+
 from contextlib import contextmanager
 from textwrap import fill
+from vimpyre.compat import get_terminal_size
+
+
+def console_size():
+    return get_terminal_size(fallback=(80, 24))
 
 
 def mkdir_p(path):
@@ -14,7 +20,8 @@ def mkdir_p(path):
     except OSError as exc:
         if exc.errno == errno.EEXIST:
             pass
-        else: raise
+        else:
+            raise
 
 
 @contextmanager
@@ -40,5 +47,5 @@ def cd(dir):
 # TODO: could try to determine terminal size, but that gets messy
 def console(msg):
     """Print with console-friendly line wrapping"""
-    print(fill(msg, width=78))
-
+    size = console_size()
+    print(fill(msg, width=size.columns))
