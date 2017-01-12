@@ -5,8 +5,8 @@ import sys
 import plac
 from os import path
 
-from bat import Bat
-from util import console
+from vimpyre.bat import Bat
+from vimpyre.util import console
 
 VIM_PATH = path.join(path.expanduser('~'), '.vim')
 ACTIONS = ['install', 'search', 'remove', 'uninstall', 'update', 'browse']
@@ -35,7 +35,7 @@ def list_installed():
 def install(*scripts):
     """install scripts"""
     if len(scripts) >= 1:
-        for index in xrange(0, len(scripts)):
+        for index in range(0, len(scripts)):
             bat = Bat(scripts[index])
             bat.install()
     else:
@@ -63,7 +63,7 @@ def search(*scripts):
 def remove(*scripts):
     """remove scripts"""
     if len(scripts) >= 1:
-        for index in xrange(0, len(scripts)):
+        for index in range(0, len(scripts)):
             bat = Bat(scripts[index])
             bat.remove()
     else:
@@ -75,7 +75,7 @@ def uninstall(*scripts):
 def update(*scripts):
     """update scripts"""
     if len(scripts) >= 1:
-        for index in xrange(0, len(scripts)):
+        for index in range(0, len(scripts)):
             bat = Bat(scripts[index])
             bat.update()
     else:
@@ -84,7 +84,7 @@ def update(*scripts):
 def browse(*scripts):
     """browse script's homepage in your web browser"""
     if len(scripts) >= 1:
-        for index in xrange(0, len(scripts)):
+        for index in range(0, len(scripts)):
             bat = Bat(scripts[index])
             bat.open_homepage()
     else:

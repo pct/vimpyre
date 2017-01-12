@@ -6,14 +6,11 @@ import sys
 import urllib
 import webbrowser
 import subprocess
+
 from os import listdir, path, system, environ
-
-
-import simplejson
-
-import util
-from util import console
-from github import GitHub
+from vimpyre import util
+from vimpyre.util import console
+from vimpyre.github import GitHub
 
 class Bat(object):
 
@@ -199,7 +196,8 @@ class Bat(object):
             bundle_path = path.join(self.VIMPYRE_PATH, bundle)
             with util.cd(bundle_path):
                 if path.isfile(path.join('.git', 'config')):
-                    url = subprocess.check_output(['grep', 'url', '.git/config']).replace('\turl = ', '').replace('\n', '')
+                    url = subprocess.check_output(['grep', 'url', '.git/config']).decode("utf-8")
+                    url = url.replace('\turl = ', '').replace('\n', '')
                     console('\033[1m%s\033[m => %s' % (bundle, url))
                 else:
                     console('\033[0;31m%s\033[m => %s' % (bundle, 'No git repository!'))

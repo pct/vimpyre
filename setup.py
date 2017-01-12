@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.2.7'
+version = '0.3.0'
 
 setup(name='vimpyre',
       version=version,
@@ -17,13 +17,12 @@ setup(name='vimpyre',
       zip_safe=False,
       install_requires=[
           'plac>=0.7.4',
-          'simplejson>=2',
           'requests>=1.1.0',
           # -*- Extra requirements: -*-
       ],
       entry_points={
       'console_scripts': [
-          'vimpyre = vimpyre.vimpyre:main',
+          'vimpyre = vimpyre.console:main',
           ],
       },
       )
