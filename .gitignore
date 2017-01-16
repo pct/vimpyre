@@ -1,5 +1,7 @@
 *~
 *.py[co]
 .*.sw[po]
+*.egg
+*.egg-info
 build/
 dist/
